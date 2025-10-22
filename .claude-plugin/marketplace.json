@@ -1,0 +1,40 @@
+{
+  "name": "curation-skills",
+  "owner": {
+    "name": "Chris Mungall",
+    "email": "cjmungall@lbl.gov"
+  },
+  "metadata": {
+    "description": "AI4Curation skills",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "ontology-access-kit",
+      "description": "Skills for querying ontologies using the Ontology Access Kit (OAK)",
+      "source": "./..",
+      "strict": false,
+      "skills": [
+        "./ontology-skills/ontology-access-kit"
+      ]
+    },
+    {
+      "name": "editing-obo-ontologies",
+      "description": "Skills and tools for editing OBO format ontologies",
+      "source": "./..",
+      "strict": false,
+      "skills": [
+        "./ontology-skills/editing-obo-ontologies"
+      ]
+    },
+    {
+      "name": "dosdp-design-patterns",
+      "description": "Skills for understanding and applying DOSDP design patterns",
+      "source": "./..",
+      "strict": false,
+      "skills": [
+        "./ontology-skills/dosdp-design-patterns"
+      ]
+    }
+  ]
+}
