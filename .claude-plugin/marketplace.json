@@ -12,28 +12,28 @@
     {
       "name": "ontology-access-kit",
       "description": "Skills for querying ontologies using the Ontology Access Kit (OAK)",
-      "source": "./..",
+      "source": "./",
       "strict": false,
       "skills": [
-        "./ontology-skills/ontology-access-kit"
+        "./ontology-access-kit"
       ]
     },
     {
       "name": "editing-obo-ontologies",
       "description": "Skills and tools for editing OBO format ontologies",
-      "source": "./..",
+      "source": "./",
       "strict": false,
       "skills": [
-        "./ontology-skills/editing-obo-ontologies"
+        "./editing-obo-ontologies"
       ]
     },
     {
       "name": "dosdp-design-patterns",
       "description": "Skills for understanding and applying DOSDP design patterns",
-      "source": "./..",
+      "source": "./",
       "strict": false,
       "skills": [
-        "./ontology-skills/dosdp-design-patterns"
+        "./dosdp-design-patterns"
       ]
     }
   ]
