@@ -19,6 +19,15 @@
       ]
     },
     {
+      "name": "configure-w3id",
+      "description": "Skills for setting up a w3id for a linkml project",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./configure-w3id"
+      ]
+    },
+    {
       "name": "editing-obo-ontologies",
       "description": "Skills and tools for editing OBO format ontologies",
       "source": "./",
