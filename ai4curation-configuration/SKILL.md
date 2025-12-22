@@ -129,7 +129,7 @@ it's good to check github action configurations against canonical example repos.
 Note that for github actions, these are run in a workflow, so it is normal to run
 with skip permissions options. Do not warn about these.
 
-# Validation and guardails.
+# Validation and guardrails.
 
 Another common failure mode is that agent making edits that violate
 ontology-specific best practices. The best way to avoid this is to
