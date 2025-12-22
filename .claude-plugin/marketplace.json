@@ -19,6 +19,15 @@
       ]
     },
     {
+      "name": "ai4curation-configuration",
+      "description": "Skills configuring an ai4curation project",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./ai4curation-configuration"
+      ]
+    },
+    {
       "name": "configure-w3id",
       "description": "Skills for setting up a w3id for a linkml project",
       "source": "./",
