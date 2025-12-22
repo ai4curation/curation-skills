@@ -17,7 +17,7 @@ This repository contains skills for a variety of curation and knowledge-based ta
 Each skill is self-contained in its own directory with a `SKILL.md` file containing the instructions and metadata that Claude uses. Browse through these examples to get inspiration for your own skills or to understand different patterns and approaches.
 
 > [!TIP]
-> **Skill are not just for agents**. They are written in plain, concise, clear natural language and can serve as great pointers/docs for people too!
+> **Skills are not just for agents**. They are written in plain, concise, clear natural language and can serve as great pointers/docs for people too!
 
 
 For broader context, see:
