@@ -24,12 +24,12 @@ For broader context, see:
 
 - https://ai4curation.io/aidocs/
 
-# Use in Claude Code
+# Use in Claude Code and Codex
 
 There are two approaches you can use to incorporate these skills into your workflows:
 
 1. Copy and paste into your repo
-2. Install via marketplace
+2. Install via marketplace (Claude Code only)
 
 ## Copy and paste (simplest)
 
@@ -37,8 +37,11 @@ Find the skill you need and copy the folder structure into the `.claude/skills/`
 
 You can then adapt the skill according to your local practice
 
-- PROs: simplest, adaptable; if checked in to your repo, everyone (+actions) can use it
+- PROs: simplest, adaptable; if checked in to your repo, everyone (+actions) can use it; is read by codex
 - CONs: harder to keep in sync with upstream changes
+
+Note that for codex, the canonical location is `.codex/skills/`, but it seems to read the claude folder.
+Hopefully there will be more standards here soon. See [OpenAI are quietly adopting skills, now available in ChatGPT and Codex CLI](https://simonwillison.net/2025/Dec/12/openai-skills/)
 
 ## Via marketplace
 
