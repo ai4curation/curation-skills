@@ -114,7 +114,7 @@ Agentic search patterns mirror these, with .obo favoring `obo-grep.pl` for agent
 Two patterns for querying an ontology are robot+sparql vs runoak. Ideally exactly one should be chosen and well documented.
 Having too many ways of doing this leads to confusing agentic documentation that is hard for humans to maintain or validate.
 
-Some ontologies may also require auxhiliary files to be edited, often in TSV. The source of truth should be clearly documented.
+Some ontologies may also require auxiliary files to be edited, often in TSV. The source of truth should be clearly documented.
 
 # Configuration and permissions
 
