@@ -17,7 +17,7 @@ In general, a repo should have:
 
 - GitHub actions that allow curators to trigger agents via GitHub issues. These actions should be configured with sufficient guardrails
 - Top level agent instructions (AGENTS.md or CLAUDE.md depending on what is used) as well as specific instructions
-- A strong validaiton/guardrails strategy
+- A strong validation/guardrails strategy
 
 Relevant files include:
 
