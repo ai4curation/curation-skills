@@ -1,7 +1,7 @@
 ---
 name: ai4curation-configuration
 description: Skill to assist with how a GitHub repository is configured with GitHub integrations, including instructions for agents in markdown (AGENTS and CLAUDE), github actions for invoking agents, and specific
-  localizaiton procedures such as defining claude/codex skills, or claude subagents. The skill helps with both technical aspects, and with best practice for guiding agents.
+  localization procedures such as defining claude/codex skills, or claude subagents. The skill helps with both technical aspects, and with best practice for guiding agents.
 ---
 
 # General principles and background
