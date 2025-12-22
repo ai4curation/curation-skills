@@ -74,7 +74,7 @@ A good pattern is to put in distilled documentation with many examples in skills
 These vary between ontologies, even when OBO standards are nominally followed. Agents that are configured by the generic template will
 do things that frustrate curators unless specific practice and tacit knowledge is spelled out, ideally with examples. This includes:
 
-- obsoletion metdata
+- obsoletion metadata
   - local practice for obsoletion, including naming conventions for obsolete terms/defs
   - rules for what kinds of axioms can and cannot be on an obsolete term
 - contributor metadata
