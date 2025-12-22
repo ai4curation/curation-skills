@@ -20,7 +20,7 @@
     },
     {
       "name": "ai4curation-configuration",
-      "description": "Skills configuring an ai4curation project",
+      "description": "Skills for configuring an ai4curation project",
       "source": "./",
       "strict": false,
       "skills": [
