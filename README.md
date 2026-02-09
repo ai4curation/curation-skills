@@ -12,7 +12,7 @@ For more information, check out:
 
 # About This Repository
 
-This repository contains skills for a variety of curation and knowledge-based tasks. We currently have 4 skills included, but intend to grow this.
+This repository contains skills for a variety of curation and knowledge-based tasks. We currently have 5 skills included, but this number is growing.
 
 Each skill is self-contained in its own directory with a `SKILL.md` file containing the instructions and metadata that Claude uses. Browse through these examples to get inspiration for your own skills or to understand different patterns and approaches.
 
@@ -123,7 +123,7 @@ Install the skills you need (use esc to go back to select more)
 
 # Invoking skills
 
-You should need to explicitly invoke skills. For example, asking a non-simple ontology question might invoke the OAK skill:
+You should not need to explicitly invoke skills. For example, asking a non-simple ontology question might invoke the OAK skill:
 
 
 ```
@@ -135,7 +135,7 @@ You should need to explicitly invoke skills. For example, asking a non-simple on
 │ Use skill “ontology-access-kit”?                                                                                                                                                                                   │
 │ Claude may use instructions, code, or files from this Skill.                                                                                                                                                       │
 │                                                                                                                                                                                                                    │
-│   Skills for querying ontologies using the Ontology Access Kit (OAK). This should only be used for complex ontology operations, for basic external ontology searching use the OLS MCP                              │
+│   Skills for querying ontologies using the Ontology Access Kit (OAK). This should only be used for complex ontology operations; for basic external ontology searching use the OLS MCP                              │
 │   (plugin:ontology-access-kit@curation-skills)                                                                                                                                                                     │
 │                                                                                                                                                                                                                    │
 │ Do you want to proceed?                                                                                                                                                                                            │
@@ -144,7 +144,7 @@ You should need to explicitly invoke skills. For example, asking a non-simple on
 │   3. No, and tell Claude what to do differently (esc)                                                                                                                                                              │
 ```
 
-(note for lookup or search tasks, Claude should simply use the OLS or Bioportal MCP instead)
+(Note: for lookup or search tasks, Claude should use the OLS or BioPortal MCP instead)
 
 Selecting 1 or 2 might result in:
 
@@ -162,7 +162,7 @@ Selecting 1 or 2 might result in:
 ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
-Here Claude has used the skill to figure the right OAK command. Here is is using a moderately complex OAK feature, the ability to do boolean queries combining graphs and property (subset) lookups.
+Here Claude has used the skill to figure the right OAK command. It is using a moderately complex OAK feature: the ability to do boolean queries combining graphs and property (subset) lookups.
 
 Agreeing to this might result in:
 
@@ -213,7 +213,7 @@ See:
 
 - https://ai4curation.io/aidocs/how-tos/set-up-github-actions/
 
-We believe the simplest way to ensure the claude agent invoked by your github actions uses skills is to follow the "Copy and paste (simplest)" protocol above.
+We believe the simplest way to ensure the Claude agent invoked by your GitHub actions uses skills is to follow the "Copy and paste (simplest)" protocol above.
 
 
 # Dev use
