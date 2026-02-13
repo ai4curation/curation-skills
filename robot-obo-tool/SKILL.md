@@ -22,7 +22,7 @@ Use ROBOT when you need to:
 - **Run quality control** - check for missing labels, definitions, bad xrefs
 - **Convert formats** - between OWL, OBO, Turtle, OFN, Manchester, JSON
 - **Extract modules** - pull subsets from large ontologies
-- **Diff ontologies** - compare two versions
+- **Diff ontologies** - compare two versions at the OWL level (consider OAK for higher level diffs)
 - **Query with SPARQL** - run SELECT/CONSTRUCT/ASK queries
 - **Build release pipelines** - chain commands for automated releases
 
@@ -151,25 +151,6 @@ robot reason \
 - `--exclude-duplicate-axioms true` - Skip axioms already in imports
 - `--create-new-ontology true` - Put inferences in a separate ontology
 
-### The reason + relax + reduce Pipeline
-
-This is the standard release pipeline used by almost all OBO ontologies:
-
-```bash
-robot reason --reasoner ELK \
-    --equivalent-classes-allowed asserted-only \
-    --exclude-tautologies structural \
-  relax \
-  reduce \
-  --output release.owl
-```
-
-What each step does:
-
-1. **reason** - Runs the reasoner, asserts inferred SubClassOf and EquivalentClass axioms, checks for unsatisfiable classes
-2. **relax** - Converts EquivalentClass axioms to SubClassOf (needed by many downstream tools that only understand SubClassOf)
-3. **reduce** - Removes redundant SubClassOf axioms (e.g., if A SubClassOf B and A SubClassOf C and B SubClassOf C, removes A SubClassOf C)
-
 ### Debugging Unsatisfiable Classes with explain
 
 When reasoning finds unsatisfiable classes (classes that cannot have any instances), use `explain` to generate human-readable markdown explanations:
@@ -196,38 +177,6 @@ robot explain --input ont.owl \
 
 The `--axiom` uses Manchester OWL syntax. Use single quotes around class/property names that contain spaces.
 
-### Axiom Generators
-
-Control what types of axioms the reasoner generates:
-
-```bash
-robot reason --reasoner ELK \
-  --axiom-generators "SubClass EquivalentClass DisjointClasses" \
-  --input edit.owl --output reasoned.owl
-```
-
-Available generators: `SubClass`, `EquivalentClass`, `DisjointClasses`, `ClassAssertion`, `PropertyAssertion`, `EquivalentObjectProperty`, `InverseObjectProperties`, `SubObjectProperty`, `ObjectPropertyCharacteristic`, `ObjectPropertyRange`, `ObjectPropertyDomain`, `SubDataProperty`, `EquivalentDataProperties`, `DataPropertyCharacteristic`
-
-### Real-World Reasoning Pattern (from OBO ontology Makefiles)
-
-This is the standard pattern used in ODK-based ontology Makefiles:
-
-```makefile
-ONT=uberon
-REASONER=ELK
-
-$(ONT)-base.owl: $(EDIT_PREPROCESSED) $(IMPORT_FILES)
-	$(ROBOT) merge $(patsubst %, -i %, $^) \
-	reason --reasoner $(REASONER) \
-		--equivalent-classes-allowed asserted-only \
-		--exclude-tautologies structural \
-	relax \
-	reduce -r $(REASONER) \
-	annotate \
-		--ontology-iri "http://purl.obolibrary.org/obo/$(ONT).owl" \
-		--version-iri "http://purl.obolibrary.org/obo/$(ONT)/releases/$(TODAY)/$(ONT).owl" \
-	--output $@
-```
 
 ## Deep Dive: Templates
 
@@ -397,15 +346,6 @@ Extraction methods:
 - **MIREOT**: Preserves hierarchy, requires upper/lower terms
 - **subset**: Just seed terms + relations between them
 
-### Diff Pipeline
-
-Compare two versions of an ontology:
-
-```bash
-robot diff --left v1.owl --right v2.owl \
-  --format markdown --labels true \
-  --output changes.md
-```
 
 ## Common Pitfalls
 
