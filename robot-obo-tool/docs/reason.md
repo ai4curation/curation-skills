@@ -1,0 +1,158 @@
+# Reason
+
+## Contents
+
+1. [Overview](#overview)
+2. [Logical Validation](#logical-validation)
+3. [Equivalent Classes (`--equivalent-classes-allowed`)](#equivalent-class-axioms)
+4. [Generated Axioms(`--axiom-generators`)](#generated-axioms)
+
+## Overview
+
+One of the main benefits of working with OWL is the availability of powerful automated reasoners. Reasoning involves two steps: logical validation (described in detail below) and automatic classification. Automatic classification involves asserting all inferred superclasses.
+
+There are several reasoners available, and each has different capabilities and characteristics. For this example we'll be using <a href="https://code.google.com/p/elk-reasoner/" target="_blank">ELK</a>, a very fast reasoner that supports the EL subset of OWL 2.
+
+    robot reason --reasoner ELK \
+      --input ribosome.owl \
+      --output results/reasoned.owl
+
+It's also possible to place the new inferences in their own ontology with `--create-new-ontology true`:
+
+    robot reason --reasoner ELK \
+      --create-new-ontology true \
+      --input ribosome.owl \
+      --output results/new_axioms.owl
+
+Using `--create-new-ontology-with-annotations true` will place the inferences in their own ontology, along with their annotations (e.g. labels, definitions, etc.).
+
+Sometimes it is important to know which axioms were inferred (designated by an axiom annotation "is_inferred true"):
+
+```
+robot reason --reasoner ELK \
+  --annotate-inferred-axioms true \
+  --input ribosome.owl \
+  --output results/reasoned.owl
+```
+
+Finally, `reason` includes two more options to help clean the reasoned output:
+* `--exclude-duplicate-axioms`: if set to true, the axioms will not be added to the output if they exist in an import (default `false`).
+* `--remove-redundant-subclass-axioms`: if set to false, redundant axioms (those that have been asserted and were also inferred) are included in the output (default `true`).
+
+If no `--reasoner` is provided, ROBOT will default to ELK. The following other reasoner options are supported:
+
+  * `hermit` - [HermiT](http://www.hermit-reasoner.com/)
+  * `jfact` - [JFact](http://jfact.sourceforge.net/)
+  * `whelk` - [Whelk](https://github.com/balhoff/whelk)
+  * `emr` - [Expression Materializing Reasoner](http://static.javadoc.io/org.geneontology/expression-materializing-reasoner/0.1.3/org/geneontology/reasoner/ExpressionMaterializingReasoner.html)
+  * `structural` - [Structural Reasoner](http://owlcs.github.io/owlapi/apidocs_4/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.html)
+
+## Logical Validation
+
+ROBOT will always perform a logical validation check prior to automatic classification. Formally, this is known as testing for *incoherency*, i.e. the presence of either a logical inconsistency or unsatisfiable classes. If either of these hold true, the reason operation will fail and robot will exit with a non-zero code, after reporting the problematic classes.
+
+You can perform detailed debugging using an environment like Protege - load the ontology, switch on the reasoner and use the explain feature. For example, if you have unsatisfiable classes, find one of them (they should show up red) and click on the `?` where it says `EquivalentTo Nothing`.
+
+If you are working on a large complex ontology with multiple imports and you encounter unsatisfiable classes during the release, you can make a minimal ontology for debugging purposes using the `-D` (`--dump-unsatisfiable`) option followed by an output file path. This will find all unsatisfiable classes and use the [extract](extract) operation to create a debug module.
+
+```
+robot reason --reasoner ELK \
+  --input incoherent-tbox.owl \
+  -D results/debug.owl
+```
+
+If the input module contains at least one import, axioms in the debug module will be tagged with the source ontology, to assist in debugging.
+
+## Equivalent Class Axioms
+
+By default, ROBOT ignores one-to-one equivalent classes (e.g. `A EquivalentTo B`). But, in many cases, inferring equivalence between two classes is usually a sign that something has gone wrong. 
+
+Sometimes we want to avoid equivalence between named classes at all (in the case of OBO, where we strive for orthogonality). This can be done through `--equivalent-classes-allowed <arg>` (shorthand `-e`). 
+
+The `<arg>` options are:
+
+ * `all`: always allow (default behavior)
+ * `none`: never allow
+ * `asserted-only`: allow asserted equivalence, but throw an error if equivalence is inferred
+
+## Excluding tautologies
+
+A **tautology** is an axiom that would be true in any ontology, i.e., it's just a given due to the semantics of OWL. For example, every class is a subclass 
+of `owl:Thing`; it is not generally useful for an ontology to explicitly state this. Some reasoners may however include these kinds of statements as part 
+of their output. The ROBOT `reason` command provides an option for filtering out tautologies generated by the reasoning process: `--exclude-tautologies <arg>`.
+
+The options for `<arg>` are:
+
+ * `false` (default): allow any generated tautologies in the output.
+ * `all` (recommended): use the HermiT reasoner to exclude any inferred axioms that would be entailed by an empty ontology.
+ * `structural` (fast): exclude axioms matching a hard-coded set of tautological patterns (e.g., `X SubClassOf owl:Thing`, `owl:Nothing SubClassOf X`, `X SubClassOf X`). Much faster than `all`.
+ 
+## Generated Axioms
+
+By default, the `reason` operation will only assert inferred subclass axioms. This can be configured with the `--axiom-generators` option. OWLAPI provides the following inferred axiom generators:
+
+  * Class axiom generators
+    * `SubClass`
+    * `EquivalentClass`
+    * `DisjointClasses`
+  * Data property axiom generators
+    * `DataPropertyCharacteristic`
+    * `EquivalentDataProperties`
+    * `SubDataProperty`
+  * Individual axiom generators
+    * `ClassAssertion`
+    * `PropertyAssertion`
+  * Object property axiom generators
+    * `EquivalentObjectProperty`
+    * `InverseObjectProperties`
+    * `ObjectPropertyCharacteristic`
+    * `SubObjectProperty`
+    * `ObjectPropertyRange`
+    * `ObjectPropertyDomain`
+
+One or more of these axiom generators can be passed into the option (separated by spaces). For example, to generate both subclass and disjoint class axioms:
+
+```
+robot reason --input unreasoned.owl
+  --axiom-generators "SubClass DisjointClasses"
+  --output reasoned.owl
+```
+
+Note that for some of the axiom generators you may need the Hermit reasoner
+to get meaningful results:
+
+
+    robot reason --input ro-base.owl --reasoner hermit
+      --axiom-generators "ObjectPropertyRange ObjectPropertyDomain"
+      --output results/ro-base-reasoned.owl
+
+
+If you are only passing one axiom generator, it does not need to be surrounded by double quotes.
+
+The axioms that are generated for subclasses, class assertions, and sub-object properties can be either direct or indirect. By default, the operation will only generate direct axioms (`--include-indirect false`). It is recommended to pipe to `reduce` after to remove any redundant axioms. For example, to generate all direct and indirect superclass expressions:
+```
+robot reason --input unreasoned.owl
+  --reasoner emr
+  --include-indirect true
+  reduce --output reasoned.owl
+```
+
+---
+
+## Error Messages
+
+### Axiom Generator Error
+
+The input for the `--axiom-generators` option must be one or more space-separated valid axiom generators, [listed above](#axiom-generators).
+
+### Create Ontology Error
+
+You must select between `--create-new-ontology-with-annotations` (`-m`) and `--create-new-ontology` (`-n`). Both cannot be passed in as `true` to one reason command, as they have opposite results.
+
+### Equivalent Class Axiom Error
+
+ROBOT has been configured to not allow one-to-one equivalent classes (`--equivalent-classes-allowed none` or `--equivalent-classes-allowed asserted-only`) and one or more equivalency has been detected. Either remove the axiom(s) causing the equivalence axiom(s), or run `reason` with `--equivalent-classes-allowed none`. [More details here](#equivalent-class-axioms).
+
+### Equivalent Classes Option Error
+
+The argument for `--equivalent-classes-allowed` must be one of: `true`, `false`, `all`, `none`, or `asserted-only`. See [Equivalent Class Axioms](#equivalent-class-axioms) for more details.
