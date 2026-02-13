@@ -53,6 +53,15 @@
       "skills": [
         "./dosdp-design-patterns"
       ]
+    },
+    {
+      "name": "robot-obo-tool",
+      "description": "Skills for using ROBOT, the OBO ontology command-line toolkit for reasoning, templates, quality control, and ontology manipulation",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./robot-obo-tool"
+      ]
     }
   ]
 }
