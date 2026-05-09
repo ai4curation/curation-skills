@@ -28,6 +28,15 @@
       ]
     },
     {
+      "name": "run-deep-research",
+      "description": "Skills for deep research with OpenAI, Perplexity, Edison/Falcon, Cyberian, and OpenScientist",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./run-deep-research"
+      ]
+    },
+    {
       "name": "configure-w3id",
       "description": "Skills for setting up a w3id for a linkml project",
       "source": "./",

@@ -12,7 +12,7 @@ For more information, check out:
 
 # About This Repository
 
-This repository contains skills for a variety of curation and knowledge-based tasks. We currently have 4 skills included, but intend to grow this.
+This repository contains skills for a variety of curation and knowledge-based tasks, and we intend to keep growing this collection.
 
 Each skill is self-contained in its own directory with a `SKILL.md` file containing the instructions and metadata that Claude uses. Browse through these examples to get inspiration for your own skills or to understand different patterns and approaches.
 
