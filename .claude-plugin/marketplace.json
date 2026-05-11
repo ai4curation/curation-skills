@@ -28,6 +28,15 @@
       ]
     },
     {
+      "name": "run-deep-research",
+      "description": "Skills for deep research with OpenAI, Perplexity, Edison/Falcon, Cyberian, and OpenScientist",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./run-deep-research"
+      ]
+    },
+    {
       "name": "configure-w3id",
       "description": "Skills for setting up a w3id for a linkml project",
       "source": "./",
@@ -52,6 +61,15 @@
       "strict": false,
       "skills": [
         "./dosdp-design-patterns"
+      ]
+    },
+    {
+      "name": "robot-obo-tool",
+      "description": "Skills for using ROBOT, the OBO ontology command-line toolkit for reasoning, templates, quality control, and ontology manipulation",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./robot-obo-tool"
       ]
     }
   ]
