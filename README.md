@@ -26,10 +26,35 @@ For broader context, see:
 
 # Use in Claude Code and Codex
 
-There are two approaches you can use to incorporate these skills into your workflows:
+There are three approaches you can use to incorporate these skills into your workflows:
 
-1. Copy and paste into your repo
-2. Install via marketplace (Claude Code only)
+1. Install with `npx skills`
+2. Copy and paste into your repo
+3. Install via marketplace (Claude Code only)
+
+## Install with npx skills
+
+With Node.js and npm installed, use the [Skills CLI](https://skills.sh/docs/cli)
+from the project where you want to use the skill:
+
+```bash
+# List available skills without installing
+npx skills add ai4curation/curation-skills --list
+
+# Install one skill for Claude Code in the current project
+npx skills add ai4curation/curation-skills --skill ontology-access-kit -a claude-code
+```
+
+Use `-a codex` to target Codex instead, or omit `-a` to choose agents.
+Installation is project-scoped by default; add `-g` for a user-wide install
+available across projects.
+
+This installs skill files. To install a Claude plugin and any bundled hooks,
+MCP servers, or plugin commands, use the marketplace instructions below.
+
+Use names shown by `--list`. The current CLI skips `configure-w3id` because its
+`SKILL.md` frontmatter has no `name` field. Tools required by each skill, such as
+OAK or ROBOT, still need their own installation.
 
 ## Copy and paste (simplest)
 
